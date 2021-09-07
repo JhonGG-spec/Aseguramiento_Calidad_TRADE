@@ -1,0 +1,71 @@
+19,20d18
+< char nindustria[50];
+< 
+27c25
+<       strcpy(nindustria, "Comida");
+---
+>       return "Comida";
+31c29
+<       strcpy(nindustria, "Traporte");
+---
+>       return "Transporte";
+35c33,34
+<       strcpy(nindustria, "Ordenadores");
+---
+>       return "Ordenadores";
+>       break;
+38c37
+<       strcpy(nindustria, "Metal");
+---
+>       return "Metal";
+42c41
+<       strcpy(nindustria, "Salud");
+---
+>       return "Salud";
+46c45
+<       strcpy(nindustria, "Aerolineas");
+---
+>       return "Aerolineas";
+55,56c54,55
+<     return nindustria;
+< 
+---
+>     if ((t->descripcion[1]) && (t->descripcion[2]!='-'))
+>       fprintf(stderr, "Nombre de industria incorrecto\n");
+64,65c63,65
+<   cptr = strchr (t->descripcion, '-');
+<   if (cptr != NULL) {
+---
+>   cptr = t->descripcion;
+>   if ((cptr[0] != NULL) && (cptr[1] != NULL) && (cptr[1] == '-')) {
+>     for (;cptr[0] != '-'; ++cptr);
+80c80
+<   for (contador; contador<longitud; contador++)
+---
+>   for (contador=0; contador<longitud; contador++)
+93c93
+<   double suma=1.0;
+---
+>   double suma;
+122c122
+<   if ((argc == 1) || (argc > 5)) 
+---
+>   if ((argc == 1) || (argc > 4)) 
+132a133
+>               fprintf (stderr,"El flag p aparece repetido\n");
+159c160
+<     if (leidas < 3) {
+---
+>     if (leidas != 3) {
+178c179
+<   printf ("%-14s %-14s %-8s %-10s %-11s\n", "Sector", "Empresa", "P Accion",
+---
+>   printf ("%-14s %-14s %-8s %-10s %-11s\n", "Industria", "Compania", "P Accion",
+180c181
+<   for (contador = 1; contador < limite; ++contador)
+---
+>   for (contador = 0; contador < limite; ++contador)
+215c216
+<     uso("trade");
+---
+>     uso("trades");
