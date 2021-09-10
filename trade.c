@@ -5,7 +5,7 @@
 void uso (programa)
      char *programa;
 {
-  fprintf(stderr, 
+  fprintf(stderr,
     "Uso: %s [-opcion] Fichero\n", programa);
   exit(1);
 }
@@ -36,13 +36,13 @@ char * nombre_industria (t)
 
     case metal:
       strcpy(nindustria, "Metal");
-      break;      
+      break;
 
     case salud:
       strcpy(nindustria, "Salud");
       break;
 
-    case aerolineas: 
+    case aerolineas:
       strcpy(nindustria, "Aerolineas");
       break;
 
@@ -67,7 +67,7 @@ char * nombre_compania (t)
   } else {
     fprintf (stderr, "Formato de nombre de industria incorrecto\n");
     exit (1);
-  };  
+  };
 }
 
 double precio_medio (array, longitud)
@@ -91,16 +91,16 @@ double tamanio_medio (array, longitud)
 {
   int contador;
   double suma=1.0;
-	
+
   for (contador=0; contador <longitud; contador++)
     suma = suma + array[contador] -> numero;
 
   return suma/contador;
-}		
+}
 
 void procesar_argumentos(argc,argv)
 
-  int argc;		
+  int argc;
   char ** argv;
 
 {
@@ -119,16 +119,16 @@ void procesar_argumentos(argc,argv)
   int switch_precio_medio=0;
   int switch_tamanio_medio=0;
 
-  if ((argc == 1) || (argc > 5)) 
+  if ((argc == 1) || (argc > 5))
     uso ("trade");
   else fuente = fopen (argv[argc-1], "r");
 
   for (i = 1; i < argc-1; ++i)
     if (argv[i][0] == '-')
-      for (j=1; argv[i][j]; ++j) 
+      for (j=1; argv[i][j]; ++j)
         switch (argv[i][j]) {
-               
-          case 'p': 
+
+          case 'p':
             if (switch_precio_medio==1) {
               exit (1);
             } else switch_precio_medio =1;
@@ -160,19 +160,24 @@ void procesar_argumentos(argc,argv)
       fprintf (stderr,"El fichero de entrada no es correcto\n");
       exit (1);
     } else {
-      acciones_ptr[limite] = (struct accion *) malloc (sizeof (struct accion)); 
+      acciones_ptr[limite] = (struct accion *) malloc (sizeof (struct accion));
       if (acciones_ptr[limite] == NULL) {
         fprintf (stderr, "No hay suficiente memoria\n");
-        fclose (fuente);   
+        fclose (fuente);
         exit (1);
       };
     };
 
-    acciones_ptr[limite]->precio = precio;
-    acciones_ptr[limite]->numero = numero;
-    acciones_ptr[limite]->descripcion = (char *)malloc(strlen(entrada)+1);
-    strcpy (acciones_ptr[limite] -> descripcion, entrada);
-  }                                   
+    if(precio<=0){
+      fprintf (stderr,"El precio de una accion debe ser mayor a 0\n");
+      exit (1);
+    } else {
+      acciones_ptr[limite]->precio = precio;
+      acciones_ptr[limite]->numero = numero;
+      acciones_ptr[limite]->descripcion = (char *)malloc(strlen(entrada)+1);
+      strcpy (acciones_ptr[limite] -> descripcion, entrada);
+    }
+  }
 
   fclose (fuente);
   printf ("%-14s %-14s %-8s %-10s %-11s\n", "Sector", "Empresa", "P Accion",
@@ -199,7 +204,7 @@ void procesar_argumentos(argc,argv)
 
 
 /**************************************************************
-*************************************************************** 
+***************************************************************
  * Este es el programa principal.
  * No hay que crear datos de prueba para este, crear abstracciones, etc.
 ***************************************************************
